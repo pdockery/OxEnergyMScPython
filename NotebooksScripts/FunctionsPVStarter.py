@@ -17,14 +17,18 @@ import numpy as np
 import os
 
 # <--- Define a function to size a PV system based on building dimensions and panel specifications
-def calculate_pv_size(): # <--- include parameters for building length, width, roof angle, panel width, panel height and panel power
+def calculate_pv_size(building_length, building_width, roof_angle, panel_width, panel_height, panel_power): # <--- include parameters for building length, width, roof angle, panel width, panel height and panel power
     """
     This is a docstring. Use it to describe the function's purpose, parameters, and return values.
     """
+    panel_w = math.floor(building_length/panel_width*1000)
+    panel_l = math.floor(building_width/2/math.cos(math.radians(roof_angle))/panel_height*1000)
+    num_panels = panel_w*panel_l
+    pv_capacity_kw = num_panels*panel_power/1000
+    
 
 
-
-    return # <--- return the total PV capacity in kW and number of panels
+    return num_panels, pv_capacity_kw # <--- return the total PV capacity in kW and number of panels
 
 if __name__ == "__main__":
     # =============================================================================
@@ -39,6 +43,7 @@ if __name__ == "__main__":
     # use the code.
     # =============================================================================
     
-    pv_capacity_kw, num_panels = # <--- call the calculate_pv_size function with appropriate arguments
+    pv_capacity_kw, num_panels = calculate_pv_size(30, 16, 22, 1046, 1690, 400)# <--- call the calculate_pv_size function with appropriate arguments
 
-    print() # <--- Add a print statement to display the number of PV panels and the total PV capacity in kW
+    print(pv_capacity_kw)
+    print(num_panels) # <--- Add a print statement to display the number of PV panels and the total PV capacity in kW
